@@ -18,8 +18,9 @@ if (copied.length !== files.length) {
   throw new Error(`Missing files: ${missing.join(", ")}`)
 }
 
-rmSync(target, { recursive: true, force: true })
+// Keep .git so a sync never rewrites history or drops the remote.
 mkdirSync(target, { recursive: true })
+for (const directory of ["src", "test", "script"]) rmSync(path.join(target, directory), { recursive: true, force: true })
 for (const file of files) cpSync(path.join(here, file), path.join(target, file), { recursive: true })
 
 const manifest = JSON.parse(readFileSync(path.join(target, "package.json"), "utf8"))
@@ -51,7 +52,7 @@ if (dirty.trim() === "") {
 const remotes = Bun.spawnSync({ cmd: ["git", "remote"], cwd: target, stdout: "pipe" }).stdout.toString()
 if (!remotes.split("\n").includes("origin")) git(["remote", "add", "origin", remote])
 if (push) {
-  git(["push", "-u", "origin", "HEAD"])
+  git(["push", "-u", "origin", "HEAD:main"])
   console.log(`Pushed ${remote}`)
 } else {
   console.log(`Next: git -C ${target} push -u origin HEAD`)
