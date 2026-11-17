@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "name": "@opencode/plugin-headless",
+  "version": "2.3.0",
+  "description": "Drive other headless OpenCode instances to completion from an OpenCode agent",
+  "type": "module",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paumkim/opencode-headless.git"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./index.ts",
+    "./server": "./index.ts"
+  },
+  "files": [
+    "src",
+    "index.ts"
+  ],
+  "scripts": {
+    "test": "bun test --only-failures --timeout 180000",
+    "typecheck": "bun check --no-script",
+    "typecheck:tsc": "tsc --noEmit",
+    "standalone": "bun run script/standalone.ts"
+  },
+  "peerDependencies": {
+    "@opencode/plugin": "^2.3.0",
+    "effect": "^4.1.0"
+  },
+  "devDependencies": {
+    "@opencode/plugin": "^2.3.0",
+    "@tsconfig/bun": "1.0.9",
+    "@types/bun": "1.4.3",
+    "@typescript/native": "npm:typescript@7.1.0-beta",
+    "effect": "4.1.0"
+  },
+  "homepage": "https://github.com/paumkim/opencode-headless#readme",
+  "bugs": {
+    "url": "https://github.com/paumkim/opencode-headless/issues"
+  }
+}
